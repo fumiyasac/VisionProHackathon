@@ -16,17 +16,21 @@ def Xform "Root"
     )
     {
         float3 xformOp:scale = (0.01, 0.01, 0.01)
-        float3 xformOp:translate = (-0.8802276, 0.01206205, -3)
+        float3 xformOp:translate = (0, 0.9, -2)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
     }
 
     def "bonsai2" (
         active = true
+        customData = {
+            float3 rotationEulerHint = (0, 0, 0)
+        }
         prepend references = @bonsai2.usdz@
     )
     {
+        quatf xformOp:orient = (1, 0, 0, 0)
         float3 xformOp:scale = (0.01, 0.01, 0.01)
-        float3 xformOp:translate = (0.23110834, 0, -3)
+        float3 xformOp:translate = (1.35, -0.4, -4)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
     }
 }
