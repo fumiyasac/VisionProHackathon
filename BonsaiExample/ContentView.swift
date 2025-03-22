@@ -10,6 +10,7 @@ import RealityKit
 import RealityKitContent
 import AVFoundation
 import UIKit
+import ARKit
 
 struct ContentView: View {
 
