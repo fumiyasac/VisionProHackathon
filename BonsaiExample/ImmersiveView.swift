@@ -17,19 +17,30 @@ struct ImmersiveView: View {
         RealityView { content in
             // Add the initial RealityKit content
             
+            let shapeSize = SIMD3<Float>(1.4, 1.4, 1.4)
+            
             if let immersiveContentEntity = try? await Entity(
                 named: "Small",
                 in: realityKitContentBundle
             ) {
                 content.add(immersiveContentEntity)
                 immersiveContentEntity.name = "Small"
+                immersiveContentEntity.components.set(InputTargetComponent())
+                immersiveContentEntity.components.set(
+                    CollisionComponent(shapes: [ShapeResource.generateBox(size: shapeSize)])
+                )
             }
+            
             if let immersiveContentEntity = try? await Entity(
                 named: "Medium",
                 in: realityKitContentBundle
             ) {
                 content.add(immersiveContentEntity)
                 immersiveContentEntity.name = "Medium"
+                immersiveContentEntity.components.set(InputTargetComponent())
+                immersiveContentEntity.components.set(
+                    CollisionComponent(shapes: [ShapeResource.generateBox(size: shapeSize)])
+                )
             }
             if let immersiveContentEntity = try? await Entity(
                 named: "Large",
@@ -37,6 +48,10 @@ struct ImmersiveView: View {
             ) {
                 content.add(immersiveContentEntity)
                 immersiveContentEntity.name = "Large"
+                immersiveContentEntity.components.set(InputTargetComponent())
+                immersiveContentEntity.components.set(
+                    CollisionComponent(shapes: [ShapeResource.generateBox(size: shapeSize)])
+                )
             }
         } update: { content in
             let entities = content.entities
@@ -56,6 +71,7 @@ struct ImmersiveView: View {
                     )
                 )
             
+            
             entities
                 .first(where: {entity in entity.name == "Large"})?.components
                 .set(
@@ -64,6 +80,19 @@ struct ImmersiveView: View {
                     )
                 )
         }
+        .gesture(
+            MagnifyGesture()
+                .targetedToAnyEntity()
+                .onEnded{value in
+                    if(appModel.size == AppModel.Size.small){
+                        appModel.size = .medium
+                    } else if (appModel.size == AppModel.Size.medium){
+                        appModel.size = .large
+                    } else if(appModel.size == AppModel.Size.large){
+                        appModel.size = .small
+                    }
+                }
+        )
     }
 }
 
