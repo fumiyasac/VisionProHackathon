@@ -20,6 +20,9 @@ struct ContentView: View {
     private var cellTitleFont: Font {
         return Font.custom("AvenirNext-Bold", size: 80.0)
     }
+    
+    private let session = ARKitSession()
+    private let handTracking = HandTracking()
 
     // プレイヤー読み込み
     let soundPlayer = SoundPlayer()
@@ -33,7 +36,27 @@ struct ContentView: View {
             Task { @MainActor in
                 await openImmersiveSpace(id: appModel.immersiveSpaceID)
             }
+            
+            Task {
+//                let request = await session.requestAuthorization(for: [.handTracking])
+//                for (authorizationType, authorizationStatus) in request {
+//                    await handTracking.runSession()
+//                }
+//                
+//                await handTracking.processHandUpdates()
+            }
         }
+        .gesture(
+//            SimultaneousGesture(DragGesture(), MagnifyGesture())
+//                .onEnded{ gesture in
+//                    print(gesture.second?.velocity)
+//                }
+            
+            TapGesture()
+                .onEnded{ gesture in
+                    print(gesture)
+                }
+        )
         .toolbar{
 //            ToolbarItem(placement:.bottomOrnament){
 //                Button("New", systemImage: "pencil") {
@@ -102,6 +125,8 @@ struct ContentView: View {
 //                }
             }
         }
+        
+    
     }
 }
 
