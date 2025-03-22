@@ -34,33 +34,71 @@ struct ContentView: View {
             }
         }
         .toolbar{
+//            ToolbarItem(placement:.bottomOrnament){
+//                Button("New", systemImage: "pencil") {
+//                    // new action
+//                }
+//            }
             ToolbarItem(placement:.bottomOrnament){
-                Button("New", systemImage: "pencil") {
-                    // new action
+                Button(action: {
+                    soundPlayer.playSound2()
+                }) {
+                    HStack {
+                        Image(systemName: "waterbottle")
+                            .font(.title)
+                        Text("Give a Water💧")
+                            .font(.title)
+                    }
                 }
             }
             ToolbarItem(placement:.bottomOrnament){
-                Button("New", systemImage: "pencil") {
-                    // new action
-                }
-            }
-            ToolbarItem(placement:.bottomOrnament){
-                Button("increase", systemImage: "square.resize.up") {
-                    if(appModel.size == AppModel.Size.small){
+                Button(action: {
+                    if (appModel.size == AppModel.Size.small) {
                         appModel.size = AppModel.Size.medium
-                    } else if(appModel.size == AppModel.Size.medium){
+                    } else if (appModel.size == AppModel.Size.medium) {
                         appModel.size = AppModel.Size.large
                     }
-                }
-            }
-            ToolbarItem(placement:.bottomOrnament){
-                Button("descrease", systemImage: "square.resize.down") {
-                    if(appModel.size == AppModel.Size.medium){
-                        appModel.size = AppModel.Size.small
-                    } else if(appModel.size == AppModel.Size.large){
-                        appModel.size = AppModel.Size.medium
+                    soundPlayer.playSound1()
+                }) {
+                    HStack {
+                        Image(systemName: "square.resize.up")
+                            .font(.title)
+                        Text("Create a Tree🌲")
+                            .font(.title)
                     }
                 }
+                
+//                Button("increase", systemImage: "square.resize.up") {
+//                    if(appModel.size == AppModel.Size.small){
+//                        appModel.size = AppModel.Size.medium
+//                    } else if(appModel.size == AppModel.Size.medium){
+//                        appModel.size = AppModel.Size.large
+//                    }
+//                }
+            }
+            ToolbarItem(placement:.bottomOrnament){
+                Button(action: {
+                    if (appModel.size == AppModel.Size.medium) {
+                        appModel.size = AppModel.Size.small
+                    } else if (appModel.size == AppModel.Size.large) {
+                        appModel.size = AppModel.Size.medium
+                    }
+                }) {
+                    HStack {
+                        Image(systemName: "square.resize.down")
+                            .font(.title)
+                        Text("Delete a Tree🪵")
+                            .font(.title)
+                    }
+                }
+
+//                Button("descrease", systemImage: "square.resize.down") {
+//                    if(appModel.size == AppModel.Size.medium){
+//                        appModel.size = AppModel.Size.small
+//                    } else if(appModel.size == AppModel.Size.large){
+//                        appModel.size = AppModel.Size.medium
+//                    }
+//                }
             }
         }
     }
@@ -68,9 +106,9 @@ struct ContentView: View {
 
 class SoundPlayer: NSObject {
 
-    let soundData1 = NSDataAsset(name: "cut_kusa")!.data
-    let soundData2 = NSDataAsset(name: "mushiru_kusa")!.data
-    var player : AVAudioPlayer!
+    let soundData1 = NSDataAsset(name: "bonsai_create")!.data
+    let soundData2 = NSDataAsset(name: "bonsai_watering")!.data
+    var player: AVAudioPlayer!
 
     func playSound1() {
         do {
