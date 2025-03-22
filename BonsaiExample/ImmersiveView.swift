@@ -12,6 +12,7 @@ import RealityKitContent
 struct ImmersiveView: View {
     
     @Environment(AppModel.self) private var appModel
+    @State var initialPosition: SIMD3<Float>? = nil
     
     var body: some View {
         RealityView { content in
@@ -93,6 +94,35 @@ struct ImmersiveView: View {
                     }
                 }
         )
+        .gesture(DragGesture()
+            .targetedToAnyEntity()
+            .onChanged({ value in
+                let rootEntity = value.entity
+
+                // Set `initialPosition` to the initial position of the entity if it is `nil`.
+                if initialPosition == nil {
+                    initialPosition = rootEntity.position
+                }
+
+                /// The movement that converts a global world space to the scene world space of the entity.
+                let movement = value.convert(value.translation3D, from: .global, to: .scene)
+
+                // Apply the entity position to match the drag gesture,
+                // and set the movement to stay at the ground level.
+                rootEntity.position = (initialPosition ?? .zero) + movement.grounded
+            })
+            .onEnded({ _ in
+                        // Reset the `initialPosition` to `nil` when the gesture ends.
+                        initialPosition = nil
+                    })
+        )
+    }
+}
+
+extension SIMD3 where Scalar == Float {
+    /// The variable to lock the y-axis value to 0.
+    var grounded: SIMD3<Scalar> {
+        return .init(x: x, y: 0, z: z)
     }
 }
 
