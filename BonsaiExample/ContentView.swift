@@ -25,17 +25,24 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            Text("Hello")
-                .font(.largeTitle)
-                .ornament(
-                    attachmentAnchor: .scene(.bottom)){
-                        Text("Hello")
-                            .font(.largeTitle)
-                    }
+//            Text("Hello")
+//                .font(.largeTitle)
         }
         .onAppear {
             Task { @MainActor in
                 await openImmersiveSpace(id: appModel.immersiveSpaceID)
+            }
+        }
+        .toolbar{
+            ToolbarItem(placement:.bottomOrnament){
+                Button("New", systemImage: "pencil") {
+                    // new action
+                }
+            }
+            ToolbarItem(placement:.bottomOrnament){
+                Button("New", systemImage: "pencil") {
+                    // new action
+                }
             }
         }
     }
