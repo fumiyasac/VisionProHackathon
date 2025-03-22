@@ -12,7 +12,10 @@ import AVFoundation
 import UIKit
 
 struct ContentView: View {
-    
+
+    @Environment(AppModel.self) private var appModel
+    @Environment(\.openImmersiveSpace) private var openImmersiveSpace
+
     private var cellTitleFont: Font {
         return Font.custom("AvenirNext-Bold", size: 80.0)
     }
@@ -20,16 +23,18 @@ struct ContentView: View {
     // プレイヤー読み込み
     let soundPlayer = SoundPlayer()
 
-
     var body: some View {
         VStack {
-            Model3D(named: "Scene", bundle: realityKitContentBundle)
-                .padding(.bottom, 50)
+            Spacer()
+                .frame(height: 24.0)
 
             Text("BONSAI MASTER")
                 .font(cellTitleFont)
 
-            ToggleImmersiveSpaceButton()
+            Image("bosai_sample")
+                .resizable()
+                .scaledToFit()
+                .padding(.horizontal, 16.0)
 
             Spacer()
                 .frame(height: 48.0)
@@ -46,6 +51,13 @@ struct ContentView: View {
                 }, label: {
                     Text("音楽を流す(2)")
                 })
+            }
+            Spacer()
+        }
+        .glassBackgroundEffect(displayMode: .never)
+        .onAppear {
+            Task { @MainActor in
+                await openImmersiveSpace(id: appModel.immersiveSpaceID)
             }
         }
         .padding()

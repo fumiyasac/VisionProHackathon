@@ -53,7 +53,7 @@ def Xform "Root"
     )
     {
         float3 xformOp:scale = (0.01, 0.01, 0.01)
-        float3 xformOp:translate = (-0.72422504, 0.0070114136, -2.4213731)
+        float3 xformOp:translate = (-0.82613134, 0.0070114136, -2.8755145)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
     }
 
@@ -67,7 +67,7 @@ def Xform "Root"
     {
         quatf xformOp:orient = (1, 0, 0, 0)
         float3 xformOp:scale = (0.01, 0.01, 0.01)
-        float3 xformOp:translate = (-0.05061665, 0, -2.6052346)
+        float3 xformOp:translate = (0.04406233, 0, -2.8209872)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
     }
 
@@ -77,7 +77,7 @@ def Xform "Root"
     )
     {
         float3 xformOp:scale = (0.01, 0.01, 0.01)
-        float3 xformOp:translate = (0.7821473, -0.0018806458, -2.583689)
+        float3 xformOp:translate = (0.8222915, -0.0018806458, -2.7979221)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
     }
 
@@ -88,7 +88,7 @@ def Xform "Root"
     {
         quatf xformOp:orient = (0.99999994, 0, 0, 0)
         float3 xformOp:scale = (0.005519174, 0.005519174, 0.005519174)
-        float3 xformOp:translate = (1.5397854, 0.6261349, -2.5107603)
+        float3 xformOp:translate = (1.5709825, 0.6261349, -2.716273)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
     }
 
@@ -102,7 +102,7 @@ def Xform "Root"
     {
         quatf xformOp:orient = (1, 0, 0, 0)
         float3 xformOp:scale = (0.01, 0.01, 0.01)
-        float3 xformOp:translate = (2.433642, 0.88014007, -2.8787088)
+        float3 xformOp:translate = (2.433642, 0.88014007, -3.0478244)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
     }
 
@@ -112,7 +112,7 @@ def Xform "Root"
     )
     {
         float3 xformOp:scale = (0.01, 0.01, 0.01)
-        float3 xformOp:translate = (-1.5618161, 1.0548773, -2.9418218)
+        float3 xformOp:translate = (-1.560234, 1.0548775, -3.1142352)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
     }
 }
