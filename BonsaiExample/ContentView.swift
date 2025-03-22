@@ -91,6 +91,30 @@ class SoundPlayer: NSObject {
     }
 }
 
+class HandTracking {
+    let session = ARKitSession()
+    let handTracking = HandTrackingProvider()
+    
+    func runSession() async {
+        do {
+            try await session.run([handTracking])
+        } catch {
+            print("error starting session: \(error)")
+        }
+    }
+    func processHandUpdates() async {
+        for await update in handTracking.anchorUpdates {
+            let handAnchor = update.anchor
+            
+            guard handAnchor.isTracked else { continue }
+            
+            
+            
+            print(handAnchor)
+        }
+    }
+}
+
 #Preview(windowStyle: .automatic) {
     ContentView()
         .environment(AppModel())
