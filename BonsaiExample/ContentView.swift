@@ -44,6 +44,24 @@ struct ContentView: View {
                     // new action
                 }
             }
+            ToolbarItem(placement:.bottomOrnament){
+                Button("increase", systemImage: "square.resize.up") {
+                    if(appModel.size == AppModel.Size.small){
+                        appModel.size = AppModel.Size.medium
+                    } else if(appModel.size == AppModel.Size.medium){
+                        appModel.size = AppModel.Size.large
+                    }
+                }
+            }
+            ToolbarItem(placement:.bottomOrnament){
+                Button("descrease", systemImage: "square.resize.down") {
+                    if(appModel.size == AppModel.Size.medium){
+                        appModel.size = AppModel.Size.small
+                    } else if(appModel.size == AppModel.Size.large){
+                        appModel.size = AppModel.Size.medium
+                    }
+                }
+            }
         }
     }
 }

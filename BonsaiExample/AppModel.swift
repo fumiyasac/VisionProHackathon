@@ -18,4 +18,10 @@ class AppModel {
         case open
     }
     var immersiveSpaceState = ImmersiveSpaceState.closed
+    enum Size {
+        case small
+        case medium
+        case large
+    }
+    var size = Size.small
 }
