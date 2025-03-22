@@ -25,42 +25,19 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            Spacer()
-                .frame(height: 24.0)
-
-            Text("BONSAI MASTER")
-                .font(cellTitleFont)
-
-            Image("bosai_sample")
-                .resizable()
-                .scaledToFit()
-                .padding(.horizontal, 16.0)
-
-            Spacer()
-                .frame(height: 48.0)
-
-            HStack {
-                Button(action: {
-                    soundPlayer.playSound1()
-                }, label: {
-                    Text("音楽を流す(1)")
-                })
-                
-                Button(action: {
-                    soundPlayer.playSound2()
-                }, label: {
-                    Text("音楽を流す(2)")
-                })
-            }
-            Spacer()
+            Text("Hello")
+                .font(.largeTitle)
+                .ornament(
+                    attachmentAnchor: .scene(.bottom)){
+                        Text("Hello")
+                            .font(.largeTitle)
+                    }
         }
-        .glassBackgroundEffect(displayMode: .never)
         .onAppear {
             Task { @MainActor in
                 await openImmersiveSpace(id: appModel.immersiveSpaceID)
             }
         }
-        .padding()
     }
 }
 
