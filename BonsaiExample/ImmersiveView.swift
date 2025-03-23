@@ -14,6 +14,33 @@ struct ImmersiveView: View {
     @Environment(AppModel.self) private var appModel
     @State var initialPosition: SIMD3<Float>? = nil
     
+    var translationGesture: some Gesture {
+        /// The gesture to move an entity.
+        DragGesture()
+            .targetedToAnyEntity()
+            .onChanged({ value in
+                /// The entity that the drag gesture targets.
+                let rootEntity = value.entity
+
+                // Set `initialPosition` to the position of the entity if it is `nil`.
+                if initialPosition == nil {
+                    initialPosition = rootEntity.position
+                }
+
+                /// The movement that converts a global world space to the scene world space of the entity.
+                let movement = value.convert(value.translation3D, from: .global, to: .scene)
+
+                // Apply the entity position to match the drag gesture,
+                // and set the movement to stay at the ground level.
+                rootEntity.position = (initialPosition ?? .zero) + movement.grounded
+            })
+            .onEnded({ _ in
+                // Reset the `initialPosition` back to `nil` when the gesture ends.
+                initialPosition = nil
+            })
+    }
+    
+    
     var body: some View {
         RealityView { content in
             // Add the initial RealityKit content
@@ -35,7 +62,7 @@ struct ImmersiveView: View {
                         shapes: [
                             ShapeResource
                                 .generateBox(
-                                    width: 30, height: 30, depth: 30
+                                    width: 1, height: 1, depth: 1
                                 )
                         ]
                     )
@@ -58,7 +85,7 @@ struct ImmersiveView: View {
                         shapes: [
                             ShapeResource
                                 .generateBox(
-                                    width: 30, height: 30, depth: 30
+                                    width: 1, height: 1, depth: 1
                                 )
                         ]
                     )
@@ -80,7 +107,7 @@ struct ImmersiveView: View {
                         shapes: [
                             ShapeResource
                                 .generateBox(
-                                    width: 30, height: 30, depth: 30
+                                    width: 1, height: 1, depth: 1
                                 )
                         ]
                     )
@@ -114,26 +141,27 @@ struct ImmersiveView: View {
                     )
                 )
         }
-        .gesture(
-            MagnifyGesture()
-                .targetedToAnyEntity()
-                .onEnded{value in
-                    if(appModel.size == AppModel.Size.small){
-                        appModel.size = .medium
-                    } else if (appModel.size == AppModel.Size.medium){
-                        appModel.size = .large
-                    } else if(appModel.size == AppModel.Size.large){
-                        appModel.size = .small
-                    }
-                }
-        )
+//        .gesture(
+//            MagnifyGesture()
+//                .targetedToAnyEntity()
+//                .onEnded{value in
+//                    if(appModel.size == AppModel.Size.small){
+//                        appModel.size = .medium
+//                    } else if (appModel.size == AppModel.Size.medium){
+//                        appModel.size = .large
+//                    } else if(appModel.size == AppModel.Size.large){
+//                        appModel.size = .small
+//                    }
+//                }
+//        )
+        .gesture(translationGesture)
     }
 }
 
 extension SIMD3 where Scalar == Float {
     /// The variable to lock the y-axis value to 0.
     var grounded: SIMD3<Scalar> {
-        return .init(x: x, y: 0, z: z)
+        return .init(x: x, y: y, z: z)
     }
 }
 
