@@ -10,6 +10,9 @@
 *.perspectivev3
 !default.perspectivev3
 xcuserdata/
+project.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+**/xcuserdata/*
 *.xccheckout
 *.moved-aside
 DerivedData/
@@ -21,7 +24,6 @@ DerivedData/
 *.xcodeproj/*
 !*.xcodeproj/project.pbxproj
 !*.xcodeproj/xcshareddata/
-!*.xcodeproj/xcuserdata/
 
 # CocoaPods
 Pods/
