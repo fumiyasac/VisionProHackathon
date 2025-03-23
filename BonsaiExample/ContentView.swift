@@ -29,40 +29,19 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-//            Text("Hello")
-//                .font(.largeTitle)
         }
         .onAppear {
             Task { @MainActor in
                 await openImmersiveSpace(id: appModel.immersiveSpaceID)
             }
-            
-            Task {
-//                let request = await session.requestAuthorization(for: [.handTracking])
-//                for (authorizationType, authorizationStatus) in request {
-//                    await handTracking.runSession()
-//                }
-//                
-//                await handTracking.processHandUpdates()
-            }
         }
         .gesture(
-//            SimultaneousGesture(DragGesture(), MagnifyGesture())
-//                .onEnded{ gesture in
-//                    print(gesture.second?.velocity)
-//                }
-            
             TapGesture()
                 .onEnded{ gesture in
                     print(gesture)
                 }
         )
         .toolbar{
-//            ToolbarItem(placement:.bottomOrnament){
-//                Button("New", systemImage: "pencil") {
-//                    // new action
-//                }
-//            }
             ToolbarItem(placement:.bottomOrnament){
                 Button(action: {
                     soundPlayer.playSound2()
@@ -91,20 +70,12 @@ struct ContentView: View {
                             .font(.title)
                     }
                 }
-                
-//                Button("increase", systemImage: "square.resize.up") {
-//                    if(appModel.size == AppModel.Size.small){
-//                        appModel.size = AppModel.Size.medium
-//                    } else if(appModel.size == AppModel.Size.medium){
-//                        appModel.size = AppModel.Size.large
-//                    }
-//                }
             }
             ToolbarItem(placement:.bottomOrnament){
                 Button(action: {
                     if (appModel.size == AppModel.Size.medium) {
                         appModel.size = AppModel.Size.small
-                    } else if (appModel.size == AppModel.Size.large) {
+                    } else if (appModel.size == AppModel.Size.large) { 
                         appModel.size = AppModel.Size.medium
                     }
                 }) {
@@ -115,18 +86,8 @@ struct ContentView: View {
                             .font(.title)
                     }
                 }
-
-//                Button("descrease", systemImage: "square.resize.down") {
-//                    if(appModel.size == AppModel.Size.medium){
-//                        appModel.size = AppModel.Size.small
-//                    } else if(appModel.size == AppModel.Size.large){
-//                        appModel.size = AppModel.Size.medium
-//                    }
-//                }
             }
         }
-        
-    
     }
 }
 
@@ -171,8 +132,6 @@ class HandTracking {
             let handAnchor = update.anchor
             
             guard handAnchor.isTracked else { continue }
-            
-            
             
             print(handAnchor)
         }
