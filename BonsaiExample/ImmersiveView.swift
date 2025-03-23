@@ -24,12 +24,23 @@ struct ImmersiveView: View {
                 named: "Small",
                 in: realityKitContentBundle
             ) {
-                content.add(immersiveContentEntity)
+            
                 immersiveContentEntity.name = "Small"
                 immersiveContentEntity.components.set(InputTargetComponent())
+                immersiveContentEntity.position.y += 1
+                immersiveContentEntity.position.z -= 2
+                
                 immersiveContentEntity.components.set(
-                    CollisionComponent(shapes: [ShapeResource.generateBox(size: shapeSize)])
+                    CollisionComponent(
+                        shapes: [
+                            ShapeResource
+                                .generateBox(
+                                    width: 30, height: 30, depth: 30
+                                )
+                        ]
+                    )
                 )
+                content.add(immersiveContentEntity)
             }
             
             if let immersiveContentEntity = try? await Entity(
@@ -39,9 +50,20 @@ struct ImmersiveView: View {
                 content.add(immersiveContentEntity)
                 immersiveContentEntity.name = "Medium"
                 immersiveContentEntity.components.set(InputTargetComponent())
+                immersiveContentEntity.position.y += 1
+                immersiveContentEntity.position.z -= 2
+                
                 immersiveContentEntity.components.set(
-                    CollisionComponent(shapes: [ShapeResource.generateBox(size: shapeSize)])
+                    CollisionComponent(
+                        shapes: [
+                            ShapeResource
+                                .generateBox(
+                                    width: 30, height: 30, depth: 30
+                                )
+                        ]
+                    )
                 )
+                content.add(immersiveContentEntity)
             }
             if let immersiveContentEntity = try? await Entity(
                 named: "Large",
@@ -50,9 +72,20 @@ struct ImmersiveView: View {
                 content.add(immersiveContentEntity)
                 immersiveContentEntity.name = "Large"
                 immersiveContentEntity.components.set(InputTargetComponent())
+                immersiveContentEntity.position.y += 1
+                immersiveContentEntity.position.z -= 2
+                
                 immersiveContentEntity.components.set(
-                    CollisionComponent(shapes: [ShapeResource.generateBox(size: shapeSize)])
+                    CollisionComponent(
+                        shapes: [
+                            ShapeResource
+                                .generateBox(
+                                    width: 30, height: 30, depth: 30
+                                )
+                        ]
+                    )
                 )
+                content.add(immersiveContentEntity)
             }
         } update: { content in
             let entities = content.entities
@@ -93,28 +126,6 @@ struct ImmersiveView: View {
                         appModel.size = .small
                     }
                 }
-        )
-        .gesture(DragGesture()
-            .targetedToAnyEntity()
-            .onChanged({ value in
-                let rootEntity = value.entity
-
-                // Set `initialPosition` to the initial position of the entity if it is `nil`.
-                if initialPosition == nil {
-                    initialPosition = rootEntity.position
-                }
-
-                /// The movement that converts a global world space to the scene world space of the entity.
-                let movement = value.convert(value.translation3D, from: .global, to: .scene)
-
-                // Apply the entity position to match the drag gesture,
-                // and set the movement to stay at the ground level.
-                rootEntity.position = (initialPosition ?? .zero) + movement.grounded
-            })
-            .onEnded({ _ in
-                        // Reset the `initialPosition` to `nil` when the gesture ends.
-                        initialPosition = nil
-                    })
         )
     }
 }
