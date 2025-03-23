@@ -141,20 +141,21 @@ struct ImmersiveView: View {
                     )
                 )
         }
-//        .gesture(
-//            MagnifyGesture()
-//                .targetedToAnyEntity()
-//                .onEnded{value in
-//                    if(appModel.size == AppModel.Size.small){
-//                        appModel.size = .medium
-//                    } else if (appModel.size == AppModel.Size.medium){
-//                        appModel.size = .large
-//                    } else if(appModel.size == AppModel.Size.large){
-//                        appModel.size = .small
-//                    }
-//                }
-//        )
         .gesture(translationGesture)
+        .gesture(
+            MagnifyGesture()
+                .targetedToAnyEntity()
+                .onEnded{value in
+                    if(appModel.size == AppModel.Size.small){
+                        appModel.size = .medium
+                    } else if (appModel.size == AppModel.Size.medium){
+                        appModel.size = .large
+                    } else if(appModel.size == AppModel.Size.large){
+                        appModel.size = .small
+                    }
+                }
+        )
+        
     }
 }
 
