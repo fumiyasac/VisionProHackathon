@@ -1,0 +1,24 @@
+---
+description: 
+globs: *.swift
+alwaysApply: false
+---
+# How to build
+- You will use following commands
+
+```shell
+#!/bin/bash
+xcodebuild \
+    -scheme BonsaiExample \
+    -destination "platform=visionOS Simulator,name=Apple Vision Pro" \
+    -configuration Debug \
+    build
+```
+
+# How to check lint
+
+You will check and fix the linter error when you make the code changes.
+
+```shell
+swiftlint lint .
+```
